@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisador Emocional Musical - Modelo Circumplex de Russell</title>
+    <script src="https://unpkg.com/meyda@5.6.0/dist/web/meyda.min.js"></script>
+	<link rel="stylesheet" href="css/russel.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Analisador Emocional de Música</h1>
+        <p class="subtitle">Baseado no Modelo Circumplex de Russell</p>
+        <div style="text-align: center;">
+            <span class="badge">✓ Psicologia Científica</span>
+            <span class="badge">✓ Meyda.js Audio Analysis</span>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">🎵</div>
+                <h3>Clique ou arraste um arquivo MP3 aqui</h3>
+                <p style="color: #666; margin-top: 10px;">Formatos aceitos: MP3, WAV, OGG</p>
+                <input type="file" id="fileInput" accept="audio/*">
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analisando características acústicas...</p>
+        </div>
+
+        <div class="player-container" id="playerContainer">
+            <h3>🎧 Player:</h3>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <div class="resultado" id="resultado">
+            <div class="resultado-grid">
+                <div class="circumplex-container">
+                    <h3 style="text-align: center; margin-bottom: 20px;">📍 Posição no Modelo Circumplex</h3>
+                    <canvas id="circumplex" class="circumplex-canvas"></canvas>
+                    <div class="quadrante-info">
+                        <div class="quadrante-box q1">Q1: Excitação/Alegria</div>
+                        <div class="quadrante-box q2">Q2: Tensão/Raiva</div>
+                        <div class="quadrante-box q3">Q3: Tristeza/Depressão</div>
+                        <div class="quadrante-box q4">Q4: Calma/Serenidade</div>
+                    </div>
+                </div>
+
+                <div class="emocao-resultado">
+                    <div class="emocao-nome" id="emocaoNome">-</div>
+                    <div class="emocao-descricao" id="emocaoDesc">-</div>
+                    <div class="coordenadas">
+                        <div class="coordenada-item">
+                            <span>Valência (Positivo ↔ Negativo):</span>
+                            <strong id="valencia">-</strong>
+                        </div>
+                        <div class="coordenada-item">
+                            <span>Arousal (Calmo ↔ Excitado):</span>
+                            <strong id="arousal">-</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-container">
+                <h3>🔬 Features Acústicas Extraídas (Meyda.js)</h3>
+                <div class="feature-item">
+                    <div>
+                        <div class="feature-label">RMS Energy (Energia/Volume)</div>
+                        <div class="feature-bar">
+                            <div class="feature-bar-fill" id="barRMS"></div>
+                        </div>
+                    </div>
+                    <span class="feature-valor" id="valRMS">-</span>
+                </div>
+                <div class="feature-item">
+                    <div>
+                        <div class="feature-label">Spectral Centroid (Brilho)</div>
+                        <div class="feature-bar">
+                            <div class="feature-bar-fill" id="barCentroid"></div>
+                        </div>
+                    </div>
+                    <span class="feature-valor" id="valCentroid">-</span>
+                </div>
+                <div class="feature-item">
+                    <div>
+                        <div class="feature-label">Energy (Energia Total)</div>
+                        <div class="feature-bar">
+                            <div class="feature-bar-fill" id="barFlux"></div>
+                        </div>
+                    </div>
+                    <span class="feature-valor" id="valFlux">-</span>
+                </div>
+                <div class="feature-item">
+                    <div>
+                        <div class="feature-label">Zero Crossing Rate (Agitação)</div>
+                        <div class="feature-bar">
+                            <div class="feature-bar-fill" id="barZCR"></div>
+                        </div>
+                    </div>
+                    <span class="feature-valor" id="valZCR">-</span>
+                </div>
+            </div>
+
+            <div class="metodologia">
+                <h3>📚 Metodologia Científica</h3>
+                <p><strong>Modelo:</strong> Circumplex Model of Affect (Russell, 1980)</p>
+                <p><strong>Biblioteca:</strong> Meyda.js - Audio Feature Extraction</p>
+                <p><strong>Eixos do modelo:</strong></p>
+                <ul>
+                    <li><strong>Valência:</strong> Dimensão hedônica (negativo ↔ positivo). Calculada baseada em brilho espectral e características harmônicas.</li>
+                    <li><strong>Arousal:</strong> Dimensão de ativação (calmo ↔ excitado). Calculada baseada em energia RMS, taxa de cruzamento por zero e fluxo espectral.</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Fórmulas:</strong></p>
+                <ul>
+                    <li>Arousal = 0.4 × RMS + 0.3 × ZCR + 0.3 × Spectral Flux</li>
+                    <li>Valência = 0.6 × Spectral Centroid normalizado - 0.4 × rugosidade estimada</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Limitações:</strong> Esta análise considera apenas características acústicas. Contexto cultural, letras e intenção artística não são incluídos. Resultados são aproximações baseadas em correlações documentadas na literatura de Music Information Retrieval (MIR).</p>
+            </div>
+        </div>
+    </div>
+	<script src="js/russel.js"></script>
+</body>
+</html>
